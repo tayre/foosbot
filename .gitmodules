@@ -1,0 +1,3 @@
+[submodule "scripts/playground/wiringPi"]
+	path = scripts/playground/wiringPi
+	url = git://git.drogon.net/wiringPi
