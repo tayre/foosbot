@@ -1,3 +1,6 @@
 [submodule "scripts/playground/wiringPi"]
 	path = scripts/playground/wiringPi
 	url = git://git.drogon.net/wiringPi
+[submodule "libwebsockets"]
+	path = scripts/playground/libwebsockets
+	url = https://github.com/warmcat/libwebsockets/
