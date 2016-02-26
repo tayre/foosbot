@@ -1,0 +1,10 @@
+{
+  "name": "socket-goal",
+  "version": "0.0.1",
+  "description": "foosbot",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.4.5",
+    "nodemon": "^1.9.1"
+  }
+}
