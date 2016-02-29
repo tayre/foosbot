@@ -7,16 +7,47 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-
-  console.log('socket connected');
-  
   socket.on('input_message', function(msg){
     console.log('incoming input_message was: ' + msg);
-     io.emit('broadcast_message', msg);
+    io.emit('broadcast_message', msg);
   });
-
 });
 
-http.listen(3000, function(){
-  console.log('listening on localhost:3000');
+var port = 3000;
+http.listen(port, function(){
+  console.log('listening on localhost:' + port);
+});
+
+
+// tcp server
+var net = require('net');
+
+net.createServer(function (socket) {
+
+  io.emit('broadcast_message', 'client connected ' + new Date());
+
+  socket.on('data', function(data) {
+    var line = data.toString();
+    console.log('got data', line);
+    io.emit('broadcast_message', line); // send to all clients
+  });
+
+  socket.on('end', function() {
+    console.log('connection end');
+    io.emit('broadcast_message', 'connection end');
+  });
+
+  socket.on('close', function() {
+    console.log('connection close');
+    io.emit('broadcast_message', 'connection close');
+  });
+
+  socket.on('error', function(e) {
+    console.log('error ', e);
+    io.emit('broadcast_message', e);
+  });
+
+  socket.write("hello from tom's tcp server");
+}).listen(3001, function() {
+  console.log('TCP Server is listening on port 3001');
 });

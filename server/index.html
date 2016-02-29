@@ -8,8 +8,8 @@
       form input { width: 300px; padding: 5px; margin: 5px }
       form button { padding: 5px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { margin: 5px; padding: 5px; }
-      #messages li:nth-child(odd) { background: #CCC; }
+      #messages li { margin: 5px; padding: 5px; white-space: pre; font-family: monospace; }
+      #messages li:nth-child(odd) { background: #F3F3F3; }
     </style>
   </head>
   <body>
@@ -36,7 +36,7 @@
 
     // handle message from server
     socket.on('broadcast_message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+      $('#messages').prepend($('<li>').text(msg));
     });
 
   </script>
