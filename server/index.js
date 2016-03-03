@@ -9,11 +9,11 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
   console.log('a user connected');
-  io.emit('increment protocol', '2');
+  socket.emit('increment protocol', '2');
 
-  socket.on('chat message', function(msg){
+  socket.on('increment protocol', function(msg){
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    socket.emit('increment protocol', msg);
   });
 });
 

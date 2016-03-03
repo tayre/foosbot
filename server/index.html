@@ -39,11 +39,11 @@
       form.addEventListener('submit', e => {
         e.preventDefault();
 
-        socket.emit('chat message', message.value);
+        socket.emit('increment protocol', message.value);
         message.value = '';
       });
 
-      socket.on('chat message', insertMessage);
+      socket.on('increment protocol', insertMessage);
 
     }());
     </script>
