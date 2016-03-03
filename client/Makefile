@@ -1,5 +1,5 @@
 foosbot: foosbot.c
-	gcc $^ -o foosbot -Wall
+	gcc $^ -o foosbot -Wall -lwebsockets
 
 .PHONY: clean
 

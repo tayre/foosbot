@@ -1,7 +1,7 @@
 FROM        alpine:3.3
 
 RUN         apk update && \
-            apk add libc-dev gcc make libwebsockets
+            apk add libc-dev gcc make libwebsockets-dev
 
 ENV         APP_HOME /vidyard/foosbot
 
