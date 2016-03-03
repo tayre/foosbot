@@ -1,0 +1,15 @@
+client:
+  container_name: 'foosbot.client'
+  build: client
+  command: ./foosbot
+  external_links:
+   - foosbot.server
+
+server:
+  container_name: 'foosbot.server'
+  build: server
+  expose:
+    - '80'
+  ports:
+    - '3000:80'
+  command: node index.js
