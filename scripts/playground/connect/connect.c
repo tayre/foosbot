@@ -110,7 +110,7 @@ int main (void) {
 
   // Set memory to 0:
   memset(&creation_info, 0, sizeof creation_info);
-  memset(&connection_info, 0, sizeof connection_info);
+  memset(&connection_info, 0, sizeof(connection_info));
 
   // Allow for force stops:
   signal(SIGINT, sighandler);
@@ -120,8 +120,8 @@ int main (void) {
   creation_info.protocols = protocols;
   creation_info.gid = -1;
   creation_info.uid = -1;
-  creation_info.fd_limit_per_thread = 8;
-  
+  // creation_info.fd_limit_per_thread = 8;
+
   context = lws_create_context(&creation_info);
   if (context == NULL) {
     fprintf(stderr, "Creating libwebsocket context failed\n");
@@ -133,7 +133,8 @@ int main (void) {
   connection_info.path = "/";
   connection_info.context = context;
   connection_info.ssl_connection = 0;
-  connection_info.host = "172.16.0.203";
+  connection_info.address = "172.16.0.203";
+  connection_info.host = connection_info.host;
   connection_info.origin = connection_info.host;
   connection_info.ietf_version_or_minus_one = -1;
   connection_info.client_exts = exts;
@@ -153,7 +154,7 @@ int main (void) {
 
     lws_service(context, 500);
   }
-  
+
   fprintf(stderr, "Exiting\n");
   lws_context_destroy(context);
 
