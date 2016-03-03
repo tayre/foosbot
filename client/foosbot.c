@@ -63,8 +63,6 @@ callback_dumb_increment(struct libwebsocket_context *this,
     fprintf(stderr, "rx %d '%s'\n", (int)len, (char *)in);
     break;
 
-  /* because we are protocols[0] ... */
-
   case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
     if ((strcmp(in, "deflate-stream") == 0) && deny_deflate) {
       fprintf(stderr, "denied deflate-stream extension\n");
@@ -173,6 +171,18 @@ int main(int argc, char **argv)
   }
 
   fprintf(stderr, "Waiting for connect...\n");
+  lws_set_log_level(
+    LLL_ERR |
+    LLL_WARN |
+    LLL_NOTICE |
+    LLL_INFO |
+    LLL_DEBUG |
+    LLL_PARSER |
+    LLL_HEADER |
+    LLL_EXT |
+    LLL_CLIENT |
+    LLL_LATENCY,
+    NULL);
 
   n = 0;
   while (n >= 0 && !was_closed && !force_exit) {
