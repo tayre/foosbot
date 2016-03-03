@@ -88,11 +88,13 @@ callback_dumb_increment(struct libwebsocket_context *this,
   return 0;
 }
 
-/* list of supported protocols and callbacks */
-
+/**
+ * list of supported protocols and callbacks
+ * https://github.com/warmcat/libwebsockets/blob/v1.4-chrome43-firefox-36/lib/libwebsockets.h#L923
+ **/
 static struct libwebsocket_protocols protocols[] = {
   {
-    "dumb-increment-protocol,fake-nonexistant-protocol",
+    "increment protocol",
     callback_dumb_increment,
     0,
     20,
@@ -109,12 +111,8 @@ int main(int argc, char **argv)
 {
   int n = 0;
   int ret = 0;
-  const char *address = "foosbot.server";
-  int port = 80;
-  int use_ssl = 0;
   struct libwebsocket_context *context;
   struct libwebsocket *wsi_dumb;
-  int ietf_version = -1; /* latest */
   struct lws_context_creation_info info;
 
   memset(&info, 0, sizeof info);
@@ -140,18 +138,33 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  /* create a client websocket using dumb increment protocol */
-
+  /**
+   * libwebsocket_client_connect() - Connect to another websocket server
+   * @context:  Websocket context
+   * @address:  Remote server address, eg, "myserver.com"
+   * @port: Port to connect to on the remote server, eg, 80
+   * @ssl_connection: 0 = ws://, 1 = wss:// encrypted, 2 = wss:// allow self
+   *      signed certs
+   * @path: Websocket path on server
+   * @host: Hostname on server
+   * @origin: Socket origin name
+   * @protocol: Comma-separated list of protocols being asked for from
+   *    the server, or just one.  The server will pick the one it
+   *    likes best.  If you don't want to specify a protocol, which is
+   *    legal, use NULL here.
+   * @ietf_version_or_minus_one: -1 to ask to connect using the default, latest
+   **/
+  const char *address = "foosbot.server";
   wsi_dumb = libwebsocket_client_connect(
       context,
       address,
-      port,
-      use_ssl,
-      "/",
+      80,
+      0,
+      "",
       address,
       address,
       protocols[0].name,
-      ietf_version);
+      -1);
 
   if (wsi_dumb == NULL) {
     fprintf(stderr, "libwebsocket connect failed\n");
@@ -160,13 +173,6 @@ int main(int argc, char **argv)
   }
 
   fprintf(stderr, "Waiting for connect...\n");
-
-  /*
-   * sit there servicing the websocket context to handle incoming
-   * packets, and drawing random circles on the mirror protocol websocket
-   * nothing happens until the client websocket connection is
-   * asynchronously established
-   */
 
   n = 0;
   while (n >= 0 && !was_closed && !force_exit) {
