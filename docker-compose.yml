@@ -8,7 +8,7 @@ client:
 server:
   container_name: 'foosbot.server'
   build: server
-  command: node index.js
+  command: node index
   expose:
     - '80'
   ports:
