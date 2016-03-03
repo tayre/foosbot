@@ -1,3 +1,10 @@
+client:
+  container_name: 'foosbot.client'
+  build: client
+  command: ./foosbot
+  links:
+   - server
+
 server:
   container_name: 'foosbot.server'
   build: server
@@ -6,10 +13,3 @@ server:
     - '80'
   ports:
     - '3000:80'
-
-client:
-  container_name: 'foosbot.client'
-  build: client
-  command: ./foosbot
-  external_links:
-   - server
