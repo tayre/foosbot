@@ -152,7 +152,7 @@ int main(int argc, char **argv)
    *    legal, use NULL here.
    * @ietf_version_or_minus_one: -1 to ask to connect using the default, latest
    **/
-  const char *address = "foosbot.server";
+  const char *address = "echo.websocket.org";
   wsi_dumb = libwebsocket_client_connect(
       context,
       address,
