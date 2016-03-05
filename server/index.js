@@ -7,6 +7,11 @@ app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
+app.get('/hi', function(req, res) {
+  console.log('hi received');
+  res.send('hi back');
+});
+
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.emit('increment protocol', '2');
