@@ -92,7 +92,7 @@ callback_dumb_increment(struct libwebsocket_context *this,
  **/
 static struct libwebsocket_protocols protocols[] = {
   {
-    "increment protocol",
+    "increment",
     callback_dumb_increment,
     0,
     20,
