@@ -24,7 +24,7 @@
     (function() {
       'use strict';
 
-      const socket = io();
+      const socket = io('ws://192.168.99.100:61445/');
       const form = document.getElementById('the-form');
       const message = document.getElementById('message');
       const messages = document.getElementById('messages');
