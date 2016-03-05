@@ -8,6 +8,8 @@ client:
 server:
   container_name: 'foosbot.server'
   build: server
+  environment:
+    DEBUG: '*'
   command: node index
   expose:
     - '80'
