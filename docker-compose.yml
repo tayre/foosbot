@@ -10,7 +10,7 @@ server:
   build: server
   environment:
     DEBUG: '*'
-  command: node index
+  command: node server
   expose:
     - '80'
   ports:

@@ -199,6 +199,11 @@
       "from": "ipaddr.js@1.0.5",
       "resolved": "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.0.5.tgz"
     },
+    "is-typedarray": {
+      "version": "1.0.0",
+      "from": "is-typedarray@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/is-typedarray/-/is-typedarray-1.0.0.tgz"
+    },
     "isarray": {
       "version": "0.0.1",
       "from": "isarray@0.0.1",
@@ -243,6 +248,11 @@
       "version": "0.7.0",
       "from": "ms@0.7.0",
       "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.0.tgz"
+    },
+    "nan": {
+      "version": "2.0.9",
+      "from": "nan@>=2.0.5 <2.1.0",
+      "resolved": "https://registry.npmjs.org/nan/-/nan-2.0.9.tgz"
     },
     "negotiator": {
       "version": "0.4.9",
@@ -415,6 +425,11 @@
       "from": "type-is@>=1.5.3 <1.6.0",
       "resolved": "https://registry.npmjs.org/type-is/-/type-is-1.5.7.tgz"
     },
+    "typedarray-to-buffer": {
+      "version": "3.0.5",
+      "from": "typedarray-to-buffer@>=3.0.3 <3.1.0",
+      "resolved": "https://registry.npmjs.org/typedarray-to-buffer/-/typedarray-to-buffer-3.0.5.tgz"
+    },
     "ultron": {
       "version": "1.0.2",
       "from": "ultron@>=1.0.0 <1.1.0",
@@ -435,6 +450,23 @@
       "from": "vary@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/vary/-/vary-1.0.1.tgz"
     },
+    "websocket": {
+      "version": "1.0.22",
+      "from": "websocket@*",
+      "resolved": "https://registry.npmjs.org/websocket/-/websocket-1.0.22.tgz",
+      "dependencies": {
+        "debug": {
+          "version": "2.2.0",
+          "from": "debug@>=2.2.0 <2.3.0",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz"
+        },
+        "ms": {
+          "version": "0.7.1",
+          "from": "ms@0.7.1",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.1.tgz"
+        }
+      }
+    },
     "ws": {
       "version": "1.0.1",
       "from": "ws@1.0.1",
@@ -444,6 +476,11 @@
       "version": "1.5.1",
       "from": "xmlhttprequest-ssl@1.5.1",
       "resolved": "https://registry.npmjs.org/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.5.1.tgz"
+    },
+    "yaeti": {
+      "version": "0.0.5",
+      "from": "yaeti@>=0.0.4 <0.1.0",
+      "resolved": "https://registry.npmjs.org/yaeti/-/yaeti-0.0.5.tgz"
     },
     "yeast": {
       "version": "0.1.2",
