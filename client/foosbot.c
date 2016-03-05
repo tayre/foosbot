@@ -158,7 +158,7 @@ int main(int argc, char **argv)
       address,
       80,
       0,
-      "",
+      "/",
       address,
       address,
       protocols[0].name,
