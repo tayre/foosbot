@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <libwebsockets.h>
 #include "dbg.h"
+#include "foosbot.h"
 #include "connect.h"
 
 static int was_closed;
@@ -170,9 +171,14 @@ int connect_to_server()
   check(ws != NULL, "libwebsocket connect failed");
   debug("Waiting for connect...");
 
+  // Spin off a child process to monitor this socket (and exit the parent)
+  if (fork() != 0) {
+    return 0;
+  }
+
   n = 0;
   while (n >= 0 && !was_closed && !force_exit) {
-    n = libwebsocket_service(context, 3);
+    n = libwebsocket_service(context, 5000);
   }
 
   // Clear our return state to a non-error level:
@@ -185,3 +191,5 @@ error:
 
   return ret;
 }
+
+void send_message(char *message) {}
