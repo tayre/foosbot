@@ -4,6 +4,7 @@ dep = $(obj:.o=.d)
 
 CC = gcc
 CFLAGS = -Wall
+# Update this to include wiringPi on the Pi
 LDFLAGS = -lwebsockets
 
 foosbot: $(obj)
