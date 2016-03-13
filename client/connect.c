@@ -18,10 +18,19 @@ int callback_dumb_increment(
     void *in,
     size_t len)
 {
+  unsigned char buffer[ LWS_SEND_BUFFER_PRE_PADDING
+                      + 4096
+                      + LWS_SEND_BUFFER_POST_PADDING
+                      ];
+  int length = 0;
+  unsigned int rands[1];
+  int ret = 0;
+
   switch (reason) {
 
   case LWS_CALLBACK_CLIENT_ESTABLISHED:
     debug("LWS_CALLBACK_CLIENT_ESTABLISHED");
+    libwebsocket_callback_on_writable(this, wsi);
     break;
 
   case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
@@ -35,14 +44,29 @@ int callback_dumb_increment(
     break;
 
   case LWS_CALLBACK_CLIENT_RECEIVE:
+    debug("LWS_CALLBACK_CLIENT_RECEIVE");
     ((char *)in)[len] = '\0';
     debug("rx %d '%s'\n", (int)len, (char *)in);
     break;
 
   case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
+    debug("LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED");
     check((strcmp(in, "deflate-stream") == 0), "denied deflate-stream extension");
     check((strcmp(in, "deflate-frame") == 0), "denied deflate-frame extension");
     check((strcmp(in, "x-google-mux") == 0), "denied x-google-mux extension");
+    break;
+
+  case LWS_CALLBACK_CLIENT_WRITEABLE:
+    debug("LWS_CALLBACK_CLIENT_WRITEABLE");
+
+    libwebsockets_get_random(this, rands, sizeof(rands));
+    length += sprintf((char *)&buffer[LWS_SEND_BUFFER_PRE_PADDING],
+        "%d",
+        (int)rands[0]);
+    debug("tx %d '%s'\n", (int)length, (char *)&buffer[LWS_SEND_BUFFER_PRE_PADDING]);
+
+    ret = libwebsocket_write(wsi, &buffer[LWS_SEND_BUFFER_PRE_PADDING], length, LWS_WRITE_TEXT);
+    check(ret >= 0, "Couldn't write to socket.");
     break;
 
   default:
@@ -68,7 +92,7 @@ struct libwebsocket_protocols protocols[] = {
     "increment",
     callback_dumb_increment,
     0,
-    20,
+    4096,
   },
   { NULL, NULL, 0, 0 } /* end */
 };
@@ -88,14 +112,15 @@ int connect_to_server()
   lws_set_log_level(
     LLL_ERR |
     LLL_WARN |
-    LLL_NOTICE |
-    LLL_INFO |
-    LLL_DEBUG |
-    LLL_PARSER |
-    LLL_HEADER |
-    LLL_EXT |
-    LLL_CLIENT |
-    LLL_LATENCY,
+    // LLL_NOTICE |
+    // LLL_INFO |
+    // LLL_DEBUG |
+    // LLL_PARSER |
+    // LLL_HEADER |
+    // LLL_EXT |
+    // LLL_CLIENT |
+    // LLL_LATENCY |
+    0,
     NULL);
   #endif
 
@@ -147,7 +172,7 @@ int connect_to_server()
 
   n = 0;
   while (n >= 0 && !was_closed && !force_exit) {
-    n = libwebsocket_service(context, 10);
+    n = libwebsocket_service(context, 3);
   }
 
   // Clear our return state to a non-error level:

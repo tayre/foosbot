@@ -39,7 +39,7 @@ wsServer.on('request', function(request) {
     connection.on('message', function(message) {
         if (message.type === 'utf8') {
             console.log('Received Message: ' + message.utf8Data);
-            connection.sendUTF(message.utf8Data);
+            connection.sendUTF('' + (parseInt(message.utf8Data) + 1));
         }
         else if (message.type === 'binary') {
             console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
@@ -49,6 +49,7 @@ wsServer.on('request', function(request) {
     connection.on('close', function(reasonCode, description) {
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
+    connection.sendUTF('Testing');
 });
 
 // this function is called when you want the server to die gracefully
