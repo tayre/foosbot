@@ -62,8 +62,8 @@ int callback_dumb_increment(
     libwebsockets_get_random(this, rands, sizeof(rands));
     length += sprintf((char *)&buffer[LWS_SEND_BUFFER_PRE_PADDING],
         "%d",
-        (int)rands[0]);
-    debug("tx %d '%s'\n", (int)length, (char *)&buffer[LWS_SEND_BUFFER_PRE_PADDING]);
+        rands[0]);
+    debug("tx %d '%s'\n", length, (char *)&buffer[LWS_SEND_BUFFER_PRE_PADDING]);
 
     ret = libwebsocket_write(wsi, &buffer[LWS_SEND_BUFFER_PRE_PADDING], length, LWS_WRITE_TEXT);
     check(ret >= 0, "Couldn't write to socket.");

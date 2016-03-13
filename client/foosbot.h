@@ -2,5 +2,6 @@
 #define __foosbot_h__
 
 volatile int force_exit = 0;
+volatile unsigned int scores[2] = { 0 };
 
 #endif

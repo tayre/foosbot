@@ -2,6 +2,7 @@
 #include "dbg.h"
 #include "foosbot.h"
 #include "connect.h"
+#include "monitor.h"
 
 void sighandler(int sig)
 {
